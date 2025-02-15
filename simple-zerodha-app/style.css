@@ -75,4 +75,10 @@ html,body{
 
 .hero-btn button:hover{
     background-color: black;
+    cursor: pointer;
+}
+
+.items li:hover{
+    cursor: pointer;
+    color: #387ED1;
 }
