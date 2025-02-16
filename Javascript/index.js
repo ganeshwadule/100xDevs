@@ -8,7 +8,9 @@ function eligible(users){
 
     return eligibleUsers;
 }
-
+const filterEligibleUsers = (users)=>{
+    return users.filter((user)=>user.age >= 18 && user.gender.toLowerCase() == "male");
+}
 const users =[
     {fullName:"Ganesh Wadule",age:22,gender:"male"},
     {fullName:"Vaishnavi Wadule",age:17,gender:"female"},
@@ -17,4 +19,4 @@ const users =[
     {fullName:"Punjabai Wadule",age:22,gender:"female"}
 ];
 
-console.log(eligible(users));
+console.log(filterEligibleUsers(users));
