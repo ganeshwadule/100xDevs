@@ -5,10 +5,13 @@
 //#BAD WAY
 setTimeout(()=>{
     console.log("hii");
+
     setTimeout(()=>{
         console.log("hello");
+
         setTimeout(()=>{
             console.log("hello there");
+
         },5000
     )
     },3000)
