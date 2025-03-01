@@ -1,68 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Todo based on React Framework/title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modern Todo based on React Framework</title>
     <style>
-        html,body{
-            width: 100%;
-            height: 100%;
-            box-sizing: border-box;
-        }
-        .inputElement{
-            margin: 24px;
-        }
-        .main{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            gap:40px;
-        }
-        #todos{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            gap:10px;
-        }
-        .todo{
-            border:1px solid black;
-            width: 300px;
-            height: 30px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-        }
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        background-color: #333;
+      }
 
-        .todo input{
-            background: transparent;
-            border: none;
-            color: black;
-            font-size: 14px;
-        }
-        input.editable{
-            border: 1px solid black;
-            background-color: white;
-            color:#333;
-            font-size: 15px;
-            font-weight: 600;
-        }
+      .main {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+       
+        width: 100%;
+      }
+      .inputElement {
+        margin: 24px;
+      }
+
+      .inputElement input {
+        padding: 10px 20px;
+        border-radius: 12px;
+        border: 2px solid rgb(52, 154, 188);
+        font-size: 16px;
+        outline: none;
+      }
+
+      .inputElement button {
+        background-color: white;
+        color: rgb(53, 52, 50);
+        padding: 10px 25px;
+        border: none;
+        box-shadow: -1px 0px 9px white;
+        border-radius: 6px;
+        border: 3px solid white;
+      }
+
+      #todos {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .todo {
+        width: auto;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .todo input {
+        background: transparent;
+        border: none;
+        color: black;
+
+        background-color: white;
+        padding: 10px 15px;
+        border-radius: 12px;
+        border: 2px solid rgb(120, 52, 188);
+        font-size: 14px;
+        outline: none;
+      }
+
+      .todo button {
+        background-color: white;
+        color: rgb(53, 52, 50);
+        padding: 10px 20px;
+        border: none;
+        box-shadow: -1px 0px 5px white;
+        border-radius: 6px;
+      }
+      input.editable {
+        border: 3px solid rgb(98, 234, 30);
+        background-color: rgb(255, 255, 255);
+        color: #333;
+        font-size: 15px;
+        font-weight: 600;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="main">
-
-        
-        <div class="inputElement">
-        <input type="text" placeholder="add a todo">
+      <div class="inputElement">
+        <input type="text" placeholder="add a todo" />
         <button onclick="addTodo()">Add Todo</button>
-        </div>
-        <div id="todos">
-
-        </div>
+      </div>
+      <div id="todos"></div>
     </div>
     <script src="script.js"></script>
-</body>
+  </body>
 </html>

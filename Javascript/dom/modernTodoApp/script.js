@@ -17,13 +17,21 @@ function deleteTodo(index) {
     render()
 }
 
-function render() {
-  document.querySelector("#todos").innerHTML = "";
+function updateTodo(index,inputEl,updateEl){
+    
+    inputEl.disabled = false;
+    updateEl.innerHTML = "save"
+    inputEl.classList.add("editable")
+   
 
-  todos.forEach((todo) => {
-    createComponent(todo.id);
-  });
+   
+    // todos[parseInt(index)].title
+    updateEl.onclick = ()=>{
+        todos[parseInt(index)].title = inputEl.value;
+        render()
+    }
 }
+
 
 function createComponent(id) {
   id = parseInt(id);
@@ -54,19 +62,13 @@ function createComponent(id) {
 
   todosEl.appendChild(todoEl);
 }
-console.log(todos);
 
-function updateTodo(index,inputEl,updateEl){
-    
-    inputEl.disabled = false;
-    updateEl.innerHTML = "save"
-    inputEl.classList.add("editable")
-   
+function render() {
+    document.querySelector("#todos").innerHTML = "";
+  
+    todos.forEach((todo) => {
+      createComponent(todo.id);
+    });
+  }
+  
 
-   
-    // todos[parseInt(index)].title
-    updateEl.onclick = ()=>{
-        todos[parseInt(index)].title = inputEl.value;
-        render()
-    }
-}
