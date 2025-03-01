@@ -61,6 +61,7 @@ function updateTodo(index,inputEl,updateEl){
     inputEl.disabled = false;
     updateEl.innerHTML = "save"
     inputEl.classList.add("editable")
+   
 
    
     // todos[parseInt(index)].title
