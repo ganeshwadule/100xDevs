@@ -8,7 +8,7 @@ function createTodo() {
   newTodoDiv.className = "todo";
   newTodoDiv.id = "node" + index;
 
-  newTodoDiv.innerHTML = `<div id="todo-data"+${index}>${textContent}</div> 
+  newTodoDiv.innerHTML = `<div>${textContent}</div> 
     <button onclick="updateTodo(${index})">Update</button> 
     <button onclick="deleteTodo(${index})">Delete</button>`;
 
