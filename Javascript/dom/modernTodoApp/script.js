@@ -36,6 +36,7 @@ function createComponent(id) {
   inputEl.disabled = true
   inputEl.id = id
 
+
   let deleteEl = document.createElement("button");
   deleteEl.innerHTML = "delete";
   deleteEl.id = id;
@@ -56,6 +57,15 @@ function createComponent(id) {
 console.log(todos);
 
 function updateTodo(index,inputEl,updateEl){
+    
+    inputEl.disabled = false;
+    updateEl.innerHTML = "save"
+    inputEl.classList.add("editable")
 
-    inputEl.disabled = true;
+   
+    // todos[parseInt(index)].title
+    updateEl.onclick = ()=>{
+        todos[parseInt(index)].title = inputEl.value;
+        render()
+    }
 }
