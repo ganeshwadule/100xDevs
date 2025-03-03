@@ -2,6 +2,8 @@ const express = require("express")
 
 const app = express()
 
+// user functionality
+// 
 const todos = []
 
 app.use(express.json())
@@ -24,28 +26,42 @@ app.post("/api/todo",(req,res)=>{
     }
    
     todos.push(req.body)
-    res.json({"message":"added a todo"})
+    res.json({todos})
 })
 
 app.put("/api/todo/:id",(req,res)=>{
-    let todoExists = todos.find((todo)=>todo.id = req.params.id);
+    let todoExists = todos.find((todo)=>todo.id === req.params.id);
 
     if(!todoExists){
         return res.json({
-            "message":"todo with id = "+req.params+" doesn't exists"
+            "message":"todo with id = "+req.params.id+" doesn't exists"
         })
     }
 
-    todos.forEach((todo=>{
-        if(todo.id === req.params.id){
-            todo.todo = req.body.todo
-        }
-    }))
+    const index = todos.findIndex((todo)=>todo.id == req.params.id)
+    todos[index].id = req.body.id;
+    todos[index].todo = req.body.todo;
+    console.log(index)
 
     res.json({
-        "message":"Updated todo"
+        todos
     })
 
+})
+
+app.delete("/api/todo/:id",(req,res)=>{
+    let todoExist = todos.find((todo)=>todo.id === req.params.id);
+    if(!todoExist){
+        return res.json({
+            "message":`todo with ${req.params.id} doesn't exists`
+        })
+    }
+
+    let index = todos.findIndex((todo)=>todo.id === req.params.id);
+
+    delete todos[index]
+
+    res.json({todos})
 })
 
 app.listen(3000,()=>console.log("serveer at 3000"))
