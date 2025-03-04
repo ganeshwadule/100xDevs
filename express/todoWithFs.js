@@ -35,6 +35,6 @@ const updateTodo = async (id,todo)=>{
 
 const newTodo = {
     id:2,
-    title:"confidence is must"
+    title:"confidence is must"btfgt
 }
 console.log(updateTodo(5,newTodo).then(()=>console.log("done")))
