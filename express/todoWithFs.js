@@ -102,7 +102,7 @@ app.get("/api/todo",async(req,res)=>{
     res.json(data)
 })
 
-// add a todo
+// Add a todo in todos file 
 app.post("/api/todo",async(req,res)=>{
     const result = await addTodo(req.body)
     // console.log(req.body)
