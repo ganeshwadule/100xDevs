@@ -1,7 +1,8 @@
 const fs =require("fs").promises
 const express = require("express")
 
-
+// readFile data
+// return it as js object
 const getTodos =  async ()=>{
 
     const data = await fs.readFile("todos.json","utf-8");
@@ -101,6 +102,7 @@ app.get("/api/todo",async(req,res)=>{
     res.json(data)
 })
 
+// add a todo
 app.post("/api/todo",async(req,res)=>{
     const result = await addTodo(req.body)
     // console.log(req.body)
@@ -109,6 +111,7 @@ app.post("/api/todo",async(req,res)=>{
     })
 })
 
+// update todo by providing a id
 app.put("/api/todo/:id",async(req,res)=>{
     const result = await updateTodo(req.params.id,req.body)
     res.send({
@@ -116,6 +119,7 @@ app.put("/api/todo/:id",async(req,res)=>{
     })
 })
 
+// update todo by providing a id
 app.delete("/api/todo/:id",async(req,res)=>{
     const result = await deleteTodo(req.params.id);
     res.json({
