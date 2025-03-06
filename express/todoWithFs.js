@@ -79,7 +79,8 @@ const deleteTodo = async (id)=>{
 
     delete fileData[id]
 
-    await fs.writeFile("todos.json",JSON.stringify(fileData,null,4))
+    const d= await fs.writeFile("todos.json",JSON.stringify(fileData,null,4))
+    console.log(d)
 
     return(`todo with id ${id} deleted successfully`);
     // console.log(data)
@@ -127,6 +128,7 @@ app.delete("/api/todo/:id",async(req,res)=>{
     })
 })
 
-app.listen(3000,()=>{
-    console.log("server listening on 3000");
-})
+// app.listen(3000,()=>{
+//     console.log("server listening on 3000");
+// })
+
