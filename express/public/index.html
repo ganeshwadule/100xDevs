@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <script>
+      async function getResults() {
+        const response = await fetch("http://localhost:3001/sum", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            a: document.querySelector("#a").value,
+            b: document.querySelector("#b").value,
+          }),
+        });
+        const data = await response.json();
+        document.querySelector(".ans").innerHTML = data.ans;
+        console.log(data);
+      }
+    </script>
+  </head>
+  <body>
+    <input type="text" id="a" placeholder="First Value" />
+    <input type="text" id="b" placeholder="Second Value" />
+    <button onclick="getResults()">Get Result</button>
+    <div class="ans"></div>
+  </body>
+</html>
