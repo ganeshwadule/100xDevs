@@ -2,7 +2,8 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const { User, Todo } = require("./db");
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt");
+const { z } = require("zod");
 
 mongoose
   .connect(
@@ -22,21 +23,39 @@ app.get("/", (req, res) => {
 });
 
 app.post("/signup", async (req, res) => {
+  const requiredBody = z.object({
+    email: z.string().min(10).max(100).email(),
+    password: z
+      .string()
+      .min(8,"password must contain atleast 8 characters")
+      .max(100,"password must not contain more than 100 characters")
+      .regex(/\d/, "password must contain a digit")
+      .regex(/[A-Z]/, "password must contain a capital letter")
+      .regex(/[^A-Za-z0-9]/, "password must contain a special symbol"),
+  });
+
+  const parsedData = requiredBody.safeParse(req.body);
+
+  if(!parsedData.success)
+    return res.json({
+    message:"Incorrect Data Format",
+    error:parsedData.error.issues[0].message
+  })
+
   const email = req.body.email;
   const password = req.body.password;
   const username = req.body.username;
 
-  const hashedPassword = await bcrypt.hash(password,5);
+  const hashedPassword = await bcrypt.hash(password, 5);
 
   const user = await User.findOne({ email: email });
 
-  if (user)
-    return res.json({ message: "User already exists" });
+  if (user) return res.json({ message: "User already exists" });
 
   await User.create({
-    email:email,
-    password:hashedPassword,
-    username:username
+    email: email,
+    password: hashedPassword,
+    username: username,
   });
 
   res.json({ message: "You are signed up" });
@@ -46,16 +65,15 @@ app.post("/signin", async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
-  const user = await User.findOne({ email: email});
+  const user = await User.findOne({ email: email });
   if (!user) return res.json({ message: "User doesn't exists" });
 
-  const passwordMatch = await bcrypt.compare(password,user.password)
-  console.log(passwordMatch)
+  const passwordMatch = await bcrypt.compare(password, user.password);
+  console.log(passwordMatch);
 
-  if(!passwordMatch)
-    return res.json({message:"Invalid Credentials"})
+  if (!passwordMatch) return res.json({ message: "Invalid Credentials" });
 
-  const token = jwt.sign({userID:user._id}, JWT_SECRET);
+  const token = jwt.sign({ userID: user._id }, JWT_SECRET);
 
   res.json({ token: token });
 });
@@ -64,38 +82,32 @@ app.post("/signin", async (req, res) => {
 // check for token validity
 // modifiy the request object
 // move to next middleware/handler
-function auth(req,res,next){
+function auth(req, res, next) {
+  const token = req.headers.token;
+  if (!token) return res.json({ message: "Unauthorized" });
+  // recomputes the signature and compares it with
+  const user = jwt.verify(token, JWT_SECRET);
+  if (!user) return res.status(403).json({ message: "Invalid token" });
 
-    const token = req.headers.token;
-    if(!token)
-        return res.json({message:"Unauthorized"})
-    // recomputes the signature and compares it with 
-    const user = jwt.verify(token,JWT_SECRET)
-    if(!user)
-      return res.status(403).json({message:"Invalid token"})
-
-    req.userID = user.userID;
-    next()
+  req.userID = user.userID;
+  next();
 }
 
-app.get("/user",auth,async (req,res)=>{
-    const userID = req.userID;
-    const user = await User.findOne({_id:userID})
-    if(!user)
-        return res.json({messageL:"User doesn't exists"})
-    res.json({user})
-})
+app.get("/user", auth, async (req, res) => {
+  const userID = req.userID;
+  const user = await User.findOne({ _id: userID });
+  if (!user) return res.json({ messageL: "User doesn't exists" });
+  res.json({ user });
+});
 
-app.post("/todo",auth,async (req,res)=>{
-    const title = req.body.title;
-    const done = req.body.done;
+app.post("/todo", auth, async (req, res) => {
+  const title = req.body.title;
+  const done = req.body.done;
 
-    const user = await User.findOne({_id:req.userID})
-    if(!user)
-        return res.json({message:"Unauthorized"})
+  const user = await User.findOne({ _id: req.userID });
+  if (!user) return res.json({ message: "Unauthorized" });
 
-    await Todo.create({title:title,done:done,user:user._id})
-    res.json({message:"created todo"})
-
-})
+  await Todo.create({ title: title, done: done, user: user._id });
+  res.json({ message: "created todo" });
+});
 app.listen(3000, () => console.log("Server listening on PORT 3000"));
