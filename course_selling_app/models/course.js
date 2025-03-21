@@ -1,9 +1,11 @@
 const mongoose = require("mongoose")
 
 const CourseSchema = new mongoose.Schema({
-    course_name:String,
-    course_duration:String,
-    course_author:String
+    title:String,
+    description:String,
+    price:String,
+    imageUrl:String,
+    creatorId:mongoose.Types.ObjectId
 })
 
 
