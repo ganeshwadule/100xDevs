@@ -3,7 +3,7 @@ const mongoose = require("mongoose")
 const CourseSchema = new mongoose.Schema({
     title:String,
     description:String,
-    price:String,
+    price:Number,
     imageUrl:String,
     creatorId:mongoose.Types.ObjectId
 })
