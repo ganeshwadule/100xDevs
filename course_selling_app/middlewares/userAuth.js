@@ -4,11 +4,11 @@ function userAuth(req, res, next) {
   try {
     const Authorization = req.headers.authorization;
 
-    const verifieduser = jwt.verify(Authorization, process.env.JWT_SECRET_KEY);
+    const verifieduser = jwt.verify(Authorization, process.env.JWT_USER_SECRET);
 
-    if (!verifieduser.email) return res.json({ message: "Unauthorized" });
+    if (!verifieduser.id) return res.json({ message: "Unauthorized" });
 
-    req.email = verifieduser.email;
+    req.id = verifieduser.id;
 
     next();
   } catch (error) {

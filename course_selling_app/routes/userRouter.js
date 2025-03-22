@@ -64,7 +64,7 @@ userRouter.post("/signin", async (req, res) => {
       return res.json({ message: "Incorrect Password" });
     }
 
-    const token = jwt.sign({ email }, process.env.JWT_SECRET_KEY);
+    const token = jwt.sign({ id:user._id }, process.env.JWT_USER_SECRET);
     res.json({ token });
   } catch (error) {
     console.log(error);
@@ -79,8 +79,8 @@ userRouter.use(auth);
 
 userRouter.get("/", async (req, res) => {
   try {
-    const { email } = req;
-    const user = await User.findOne({ email });
+    const { id } = req;
+    const user = await User.findById(id);
     if (!user) return res.json({ message: "Unauthorized" });
     res.json({ user });
   } catch (error) {
@@ -91,8 +91,8 @@ userRouter.get("/", async (req, res) => {
 
 userRouter.post("/purchase_course/:id", async (req, res) => {
   try {
-    const { email } = req;
-    const user = await User.findOne({ email });
+    const { id } = req;
+    const user = await User.findById(id);
     if (!user) return res.json({ message: "Unauthorized" });
 
     const course = await Course.findOne({ _id: req.params.id });
@@ -109,8 +109,8 @@ userRouter.post("/purchase_course/:id", async (req, res) => {
 
 userRouter.get("/courses", async (req, res) => {
   try {
-    const { email } = req;
-    const user = await User.findOne({ email });
+    const { id } = req;
+    const user = await User.findById(id);
 
     if (!user) return res.json("User doesn't exists");
 
@@ -122,7 +122,7 @@ userRouter.get("/courses", async (req, res) => {
 
     const courses = await Promise.all(
       user_purchases.map(
-        async (purchase) => await Course.findById(purchase.courseId)
+         (purchase) =>  Course.findById(purchase.courseId)
       )
     );
 

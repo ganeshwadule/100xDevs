@@ -1,21 +1,21 @@
 const { Admin } = require("../models/admin");
+const jwt = require("jsonwebtoken")
 
 async function adminAuth(req, res, next) {
-  try {
-    const { email } = req;
-    const admin = await Admin.findOne({ email });
-
-    if (!admin) {
-      return res
-        .status(403)
-        .json({ message: "You are not an admin to perform this activity" });
-    }
-
-    next();
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "some error occurred" });
-  }
+ try {
+     const Authorization = req.headers.authorization;
+ 
+     const verifieduser = jwt.verify(Authorization, process.env.JWT_ADMIN_SECRET);
+ 
+     if (!verifieduser.id) return res.json({ message: "Unauthorized" });
+ 
+     req.id = verifieduser.id;
+ 
+     next();
+   } catch (error) {
+     console.log(error)
+     res.json({ message: "some error occurred" });
+   }
 }
 
 module.exports = adminAuth;
