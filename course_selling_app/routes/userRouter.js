@@ -115,16 +115,17 @@ userRouter.get("/courses", async (req, res) => {
     if (!user) return res.json("User doesn't exists");
 
     const user_purchases = await Purchase.find({ userId: user._id });
+    
     // res.json(user_purchases)
     // map doens't wait for each promoise to resolve thus returns 
     // unresolved promises so we have to use Promise.all before getting results
+
     const courses = await Promise.all(
       user_purchases.map(
         async (purchase) => await Course.findById(purchase.courseId)
       )
     );
 
-    // const user_courses = user_purchases.map(async (purchase)=>(await Course.findOne({_id:purchase.courseId})))
     res.json(courses);
   } catch (error) {
     console.log(error);
