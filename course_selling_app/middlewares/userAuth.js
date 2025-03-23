@@ -2,9 +2,11 @@ const jwt = require("jsonwebtoken");
 
 function userAuth(req, res, next) {
   try {
-    const Authorization = req.headers.authorization;
+    // const Authorization = req.headers.authorization;
+    if(!req.cookies || !req.cookies.authToken)
+      return res.send("Unauhtorizeed")
 
-    const verifieduser = jwt.verify(Authorization, process.env.JWT_USER_SECRET);
+    const verifieduser = jwt.verify(req.cookies.userAuthToken, process.env.JWT_USER_SECRET);
 
     if (!verifieduser.id) return res.json({ message: "Unauthorized" });
 
@@ -12,7 +14,7 @@ function userAuth(req, res, next) {
 
     next();
   } catch (error) {
-    // console.log(error)
+    console.log(error)
     res.json({ message: "some error occurred" });
   }
 }

@@ -65,7 +65,10 @@ userRouter.post("/signin", async (req, res) => {
     }
 
     const token = jwt.sign({ id:user._id }, process.env.JWT_USER_SECRET);
-    res.json({ token });
+    // res.json({ token });
+    res.cookie("userAuthToken",token);
+    
+    res.json({token})
   } catch (error) {
     console.log(error);
     res.json({ message: "Error while signinig user" });

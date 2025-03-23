@@ -56,6 +56,8 @@ adminRouter.post("/signin", async (req, res) => {
     if (!passwordMatch) return res.json({ message: "Incorrect Password" });
 
     const token = jwt.sign({ id:admin._id }, process.env.JWT_ADMIN_SECRET);
+    // res.json({ token });
+    res.cookie("adminAuthToken",token)
     res.json({ token });
 
   } catch (error) {
@@ -98,7 +100,7 @@ adminRouter.post("/createCourse", async (req, res) => {
 adminRouter.put("/updateCourse/:id", async (req, res) => {
   try {
     
-    const course = await Course.findById(req.params.id);
+    const course = await Course.findOne({_id:req.params.id,creatorId:req.id});
 
     if (!course) return res.json({ message: "Course doesn't exists" });
 
@@ -113,11 +115,11 @@ adminRouter.put("/updateCourse/:id", async (req, res) => {
 
 adminRouter.delete("/deleteCourse/:id", async (req, res) => {
   try {
-    const course = await Course.findById(req.params.id);
+    const course = await Course.findOne({_id:req.params.id,creatorId:req.id});
 
     if (!course) return res.json({ message: "Course doesn't exists" });
 
-    await Course.deleteOne({ _id:req.params.id }, req.body);
+    await Course.deleteOne({ _id:req.params.id });
 
     res.status(200).json({ message: "course deleted successfully" });
   } catch (error) {
