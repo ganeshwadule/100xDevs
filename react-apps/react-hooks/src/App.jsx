@@ -7,6 +7,7 @@ import RecoilComponent from "./components/RecoilComponent";
 import LanguageContextProvider from "./contexts/LanguageContext";
 import { RecoilRoot } from "recoil";
 import { translations } from "./contexts/LanguageContext";
+import Notifications from "./components/Notifications";
 
 function App() {
   return (
@@ -18,38 +19,14 @@ function App() {
       {/* <LanguageContextProvider>
     <ChangeLanguage/>
     </LanguageContextProvider> */}
-        <RecoilComponent />
+        {/* <RecoilComponent /> */}
+        <RecoilRoot>
+        <Notifications/>
+        </RecoilRoot>
+        
     </>
   );
 }
 
 export default App;
 
-function ChangeLanguage() {
-  return (
-    <div>
-      <div
-        style={{
-          width: 200,
-          height: 200,
-          backgroundColor: "black",
-          color: "white",
-        }}
-      >
-        {translations["hi"].greeting}
-      </div>
-      <br />
-      <br />
-      <div
-        style={{
-          width: 200,
-          height: 200,
-          backgroundColor: "black",
-          color: "white",
-        }}
-      >
-        {translations["en"].greeting}
-      </div>
-    </div>
-  );
-}
