@@ -5,7 +5,7 @@ import { notifications, totalNotifications } from '../store/atoms/notifications'
 const Notifications = () => {
     const [notificationCount,setNotificationsCount] = useRecoilState(notifications);
     const total = useRecoilValue(totalNotifications);
-
+    
   return (
         <div>
             <button>jobs ({notificationCount.jobs})</button>

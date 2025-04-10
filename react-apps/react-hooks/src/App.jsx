@@ -8,6 +8,7 @@ import LanguageContextProvider from "./contexts/LanguageContext";
 import { RecoilRoot } from "recoil";
 import { translations } from "./contexts/LanguageContext";
 import Notifications from "./components/Notifications";
+import Todos from "./components/Todos";
 
 function App() {
   return (
@@ -19,14 +20,12 @@ function App() {
       {/* <LanguageContextProvider>
     <ChangeLanguage/>
     </LanguageContextProvider> */}
-        {/* <RecoilComponent /> */}
-        <RecoilRoot>
-        <Notifications/>
-        </RecoilRoot>
-        
+      {/* <RecoilComponent /> */}
+      <RecoilRoot>
+        <Todos />
+      </RecoilRoot>
     </>
   );
 }
 
 export default App;
-
