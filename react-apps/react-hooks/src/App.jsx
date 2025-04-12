@@ -9,7 +9,7 @@ import { RecoilRoot } from "recoil";
 import { translations } from "./contexts/LanguageContext";
 import Notifications from "./components/Notifications";
 import Todos from "./components/Todos";
-
+import Hooks from "./components/Hooks";
 function App() {
   return (
     <>
@@ -18,12 +18,14 @@ function App() {
 
       {/* <ContextAPICompo></ContextAPICompo> */}
       {/* <LanguageContextProvider>
-    <ChangeLanguage/>
-    </LanguageContextProvider> */}
-      {/* <RecoilComponent /> */}
+      <ChangeLanguage/>
+      </LanguageContextProvider> */}
+      {/* <RecoilComponent />
       <RecoilRoot>
         <Todos />
-      </RecoilRoot>
+      </RecoilRoot> */}
+
+        <Hooks/>
     </>
   );
 }
