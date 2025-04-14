@@ -1,8 +1,15 @@
 "use strict";
-function caller(callback) {
-    setTimeout(callback, 3000);
+class User {
+    constructor(name) {
+        this.name = name;
+    }
 }
-function hello() {
-    console.log("hello");
+class Manager extends User {
+    constructor(name) {
+        super(name);
+        this.greet = () => {
+            return "hello";
+        };
+        this.name = name;
+    }
 }
-caller(hello);
