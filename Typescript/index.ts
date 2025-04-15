@@ -1,17 +1,60 @@
-interface User {
+
+// this can be type or Interface
+type User = {
   name: string;
   age: number;
+  email: string;
+  password: string;
 }
 
-const users: User[] = [
-  { name: "Ganesh", age: 1 },
-  { name: "Mahesh", age: 1 },
-  { name: "Ganesh", age: 6 },
-];
+// to create selected type from selecting types from existing Interface / Type
+type UpdateProps = Pick<User, "name" | "age" | "email">;
 
-function legalUsers(users: User[]): User[] {
-  const legals = users.filter((user) => user.age >= 18);
-  return legals;
+// to make fields optional
+type UpdatePropsOptional = Partial<UpdateProps>;
+
+const user: UpdatePropsOptional = {
+  name: "ganesh",
+  age: 18,
+  email: "ganesh@gmail.com"
+};
+
+console.log(user);
+
+interface a{
+  name:string
+
 }
 
-console.log(legalUsers(users))
+interface b{
+  age:number
+}
+
+type c = a & b
+
+let u:c={
+  name:"ganesh",
+  age:18
+}
+
+// ReadOnly
+
+interface Address{
+  readonly country:string;
+  picode:number
+}
+
+const address:Address = {
+  country :"India",
+  picode:443301
+}
+
+const address2:Readonly<Address> = {
+  country :"India",
+  picode:443301
+}
+console.log(address2 === address)
+
+Exclude
+Map and Record
+Zod Inference
