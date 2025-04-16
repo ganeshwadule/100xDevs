@@ -2,8 +2,10 @@ import express from "express";
 import dotenv from 'dotenv'
 import userRouter from "./routes/userRouter";
 import mongoose from "mongoose";
-
-
+import cookieParser from 'cookie-parser'
+import contentRouter from "./routes/contentRouter";
+import auth from "./middlewares/auth";
+import shareRouter from "./routes/shareRouter";
 
 const app = express();
 
@@ -12,9 +14,15 @@ dotenv.config()
 const port = parseInt(process.env.PORT || "3001",10) ;  
 
 app.use(express.json())
-
+app.use(cookieParser())
 // Route Handler for User
 app.use("/api/v1/user",userRouter)
+
+
+app.use("/api/v1/brain/share",shareRouter)
+// user authentication middleware
+app.use(auth)
+app.use("/api/v1/content",contentRouter)
 
 
 app.get("/",(req,res)=>{
