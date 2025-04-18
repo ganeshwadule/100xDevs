@@ -15,13 +15,13 @@ const port = parseInt(process.env.PORT || "3001",10) ;
 
 app.use(express.json())
 app.use(cookieParser())
-// Route Handler for User
+// Route Handler for User       
 app.use("/api/v1/user",userRouter)
 
-
-app.use("/api/v1/brain/share",shareRouter)
+console.log("reached here 1")
+app.use("/api/v1/brain",shareRouter)
 // user authentication middleware
-app.use(auth)
+
 app.use("/api/v1/content",contentRouter)
 
 

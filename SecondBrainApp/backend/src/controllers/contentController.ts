@@ -64,9 +64,6 @@ const getContent = async (req: CustomRequest, res: Response) => {
    }
   };
 
-const shareContent = async(req:CustomRequest,res:Response)=>{
-    // 
-}
-
+  
 
 export default {addContent,getContent}
