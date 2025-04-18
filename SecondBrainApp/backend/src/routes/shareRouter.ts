@@ -2,7 +2,6 @@ import { Router, Response, Request } from "express";
 import auth, { CustomRequest } from "../middlewares/auth";
 import Content from "../models/Content";
 import User from "../models/User";
-import bcrypt from "bcrypt";
 import Link from "../models/Link";
 
 const shareRouter = Router();
@@ -45,8 +44,10 @@ shareRouter.get("/:shareLink", async (req: Request, res: Response) => {
     // get the hash and find link using it
     const hash = req.params.shareLink;
 
-    const link = await Link.findOne({ hash });
+    const link = await Link.findOne({ hash }).populate("userId","username share");
 
+    console.log(link)
+    
     if (!link) {
       res.status(404).json("Invalid Link");
       return;
