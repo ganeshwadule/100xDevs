@@ -1,12 +1,14 @@
-import { ReactNode } from "react";
+import { ReactElement } from "react";
 
 interface ButtonProps {
+
   variant: "primary" | "secondary";
   size: "sm" | "md" | "lg";
   text: string;
   onClick: () => void;
-  startIcon?: ReactNode;
-  endIcon?: ReactNode;
+  startIcon?: ReactElement;
+  endIcon?: ReactElement;
+
 }
 
 const variantStyles = {
@@ -22,10 +24,13 @@ const sizeStyles = {
     'lg':"px-6 py-3 text-lg"
 }
 const Button = (props: ButtonProps) => {
+
   return (
+
     <button className={`${variantStyles[props.variant]} ${defaultStyles} ${sizeStyles[props.size]} `} onClick={props.onClick}>
       {props.text}
     </button>
+    
   );
 };
 
