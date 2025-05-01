@@ -5,7 +5,7 @@ interface ButtonProps {
   variant: "primary" | "secondary";
   size: "sm" | "md" | "lg";
   text: string;
-  onClick: () => void;
+  onClick?: () => void;
   startIcon?: ReactElement;
   endIcon?: ReactElement;
 
@@ -16,11 +16,11 @@ const variantStyles = {
   "secondary": "blue-200 text-100",
 };
 
-const defaultStyles = "rounded-md mx-1 my-1 flex gap-2 justify-center items-center";
+const defaultStyles = "rounded-md mx-1 my-1 flex gap-2 justify-center items-center font-semibold cursor-pointer";
 
 const sizeStyles = {
     'md':"px-4 py-2 text-md",
-    'sm':"px-2 py-1 text-sm",
+    'sm':"px-3 py-2 text-sm",
     'lg':"px-6 py-3 text-lg"
 }
 const Button = (props: ButtonProps) => {

@@ -18,11 +18,11 @@ const Card = ({ type, title, link }: CardProps) => {
     <div>
       <div className="p-4 border-gray-200 max-w-72 bg-white rounded-md border">
         <div className="flex justify-between">
-          <div className="flex justify-center  items-center gap-0.5">
+          <div className="flex justify-center  items-center gap-1.5 text-gray-600 ">
             {IconTypes[type]}
-            Project Ideas
+           <span className="text-gray-800">{title}</span> 
           </div>
-          <div className="flex justify-center items-center gap-0.5">
+          <div className="flex justify-center items-center gap-1.5 text-gray-600 ">
             {<ShareIcon />}
             {<TrashIcon />}
           </div>
@@ -31,7 +31,7 @@ const Card = ({ type, title, link }: CardProps) => {
           {type === "youtube" && (
             <iframe
               className=" w-full py-4"
-              src="https://www.youtube.com/embed/d2ofxg8pHfQ?si=-N6BlY-uSrZsZs8-"
+              src={link}
               title="YouTube video player"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               referrerPolicy="strict-origin-when-cross-origin"
@@ -42,7 +42,7 @@ const Card = ({ type, title, link }: CardProps) => {
           {type === "twitter" && (
             <>
               <blockquote className="twitter-tweet">
-                <a href="https://twitter.com/DearS_o_n/status/1917631636243636618?ref_src=twsrc%5Etfw"></a>
+                <a href={link}></a>
               </blockquote>{" "}
               <script
                 async
