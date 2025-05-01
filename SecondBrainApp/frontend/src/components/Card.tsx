@@ -8,7 +8,6 @@ interface CardProps {
   title: string;
   link: string;
 }
-
 const IconTypes = {
     "twitter" : <TweeterIcon/>,
     "youtube" : <YoutubeIcon/>
