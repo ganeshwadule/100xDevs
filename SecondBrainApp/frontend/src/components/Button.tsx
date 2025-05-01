@@ -16,7 +16,7 @@ const variantStyles = {
   "secondary": "blue-200 text-100",
 };
 
-const defaultStyles = "rounded-md mx-1 my-1";
+const defaultStyles = "rounded-md mx-1 my-1 flex gap-2 justify-center items-center";
 
 const sizeStyles = {
     'md':"px-4 py-2 text-md",
@@ -28,6 +28,7 @@ const Button = (props: ButtonProps) => {
   return (
 
     <button className={`${variantStyles[props.variant]} ${defaultStyles} ${sizeStyles[props.size]} `} onClick={props.onClick}>
+      {props.startIcon}
       {props.text}
     </button>
     
