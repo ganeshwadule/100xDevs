@@ -18,18 +18,11 @@ app.use(cookieParser())
 // Route Handler for User       
 app.use("/api/v1/user",userRouter)
 
-console.log("reached here 1")
+// Route Handler for Brain Share Tasks      
 app.use("/api/v1/brain",shareRouter)
-// user authentication middleware
 
+// Route Handler for Content      
 app.use("/api/v1/content",contentRouter)
-
-
-app.get("/",(req,res)=>{
-    res.send("Awwwwe Sheldon")
-})
-
-
 
 const main = async ()=>{
     await mongoose.connect(process.env.MONGO_URI as string).then(()=>console.log("Connected to DB"));

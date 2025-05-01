@@ -15,13 +15,20 @@ const shareRouter = Router();
 shareRouter.post("/share", auth, async (req: CustomRequest, res: Response) => {
   try {
     const { userId } = req;
+    const share:boolean = req.body.share;
 
     // make share = true
     const user = await User.findByIdAndUpdate(
       userId,
-      { share: true },
+      { share: share },
       { new: true, runValidators: true }
     );
+
+    if(!share){
+      await Link.deleteOne({userId});
+      res.json("Link removed")
+      return;
+    }
 
     // convert userId to bas64 encoded string
     const base64Id = Buffer.from(userId as string).toString("base64");
@@ -46,7 +53,7 @@ shareRouter.get("/:shareLink", async (req: Request, res: Response) => {
 
     const link = await Link.findOne({ hash }).populate("userId","username share");
 
-    console.log(link)
+    // console.log(link)
     
     if (!link) {
       res.status(404).json("Invalid Link");
