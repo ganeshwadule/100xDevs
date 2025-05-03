@@ -32,8 +32,8 @@ const signup = async (req: Request, res: Response) => {
     const { success, data, error } = requiredSchema.safeParse(req.body);
 
     if (!success) {
-      console.log(error)
-      res.json(error.issues[0].message);
+      // console.log(error)
+      res.json({message:error.issues[0].message});
       return;
     }
 
@@ -63,7 +63,7 @@ const signup = async (req: Request, res: Response) => {
 const signin = async (req: Request, res: Response) => {
   try {
     // validating schema using Zod
-
+    console.log("request came")
     const requiredSchema = z.object({
       username: z
         .string()
@@ -116,8 +116,10 @@ const signin = async (req: Request, res: Response) => {
 
     res.cookie("authToken", token, {
       httpOnly: false, // Prevents JavaScript access for security
-      secure: false, // Must be true for HTTPS // Required for cross-origin requests // shou;d be None in production
-      path: "/",
+      secure: false,
+      sameSite:"lax", // Must be true for HTTPS // Required for cross-origin requests // shou;d be None in production
+      path: "/"
+
     });
 
     res.status(201).json({ token: token, message: "User signed in" });

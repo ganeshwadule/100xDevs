@@ -26,7 +26,7 @@ function Count() {
 
 function Increase() {
   const setCount = useSetRecoilState(counterAtom);
-
+                   
   return (
     <span style={{ padding: 10, margin: 10 }}>
       <button onClick={() => setCount((prev) => prev + 2)}>Increase</button>
