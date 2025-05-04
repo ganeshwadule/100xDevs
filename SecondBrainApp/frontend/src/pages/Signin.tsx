@@ -6,12 +6,9 @@ import { useRef } from "react";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
 
-
 const Signin = () => {
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
-
-
 
   const navigate = useNavigate();
 

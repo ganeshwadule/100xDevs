@@ -36,7 +36,7 @@ const Card = ({ id , type, title, link  }: CardProps) => {
             <span className="text-gray-800">{title}</span>
           </div>
           <div className="flex justify-center items-center gap-1.5 text-gray-600 ">
-            {<ShareIcon />}
+            {<ShareIcon  />}
             {<TrashIcon onClick = {()=>removeCard(id)} />}
           </div>
         </div>

@@ -36,7 +36,7 @@ shareRouter.post("/share", auth, async (req: CustomRequest, res: Response) => {
     // create the link with hashed id
     await Link.create({ hash: base64Id, userId });
 
-    res.status(201).json({ link: `http://localhost:3000/api/v1/brain/${base64Id}` });
+    res.status(201).json({ link: `brain/${base64Id}` });
 
   } catch (error) {
 
@@ -60,7 +60,7 @@ shareRouter.get("/:shareLink", async (req: Request, res: Response) => {
       return;
     }
 
-    // if link exits get the userId
+    // if link exists get the userId
     const userId = link.userId;
 
     // get user data from userId

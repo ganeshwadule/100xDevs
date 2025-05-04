@@ -13,9 +13,9 @@ const ContentModal = ({ isModalOpen, setIsModalOpen }) => {
   const typeRef = useRef<HTMLInputElement>(null);
   const linkRef = useRef<HTMLInputElement>(null);
 
-  // const addContent = useContentStore((state)=>(state.addContent));
+  const addContent = useContentStore((state)=>(state.addContent));
 
-  const {refetch} = useFetch(`${BACKEND_URL}/api/v1/content/`)
+  // const {refetch} = useFetch(`${BACKEND_URL}/api/v1/content/`)
 
 
   const addNewContent = async () => {
@@ -30,8 +30,8 @@ const ContentModal = ({ isModalOpen, setIsModalOpen }) => {
         { withCredentials: true }
       );
       // updating content here
-      // addContent(response.data)
-      await refetch();
+      addContent(response.data)
+      // await refetch();
       setIsModalOpen(false);
     } catch (error) {
       console.log(error);

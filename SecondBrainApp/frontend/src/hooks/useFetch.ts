@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useContentStore } from "../store";
+import { BACKEND_URL } from "../config";
 
 const useFetch = (url: string) => {
 
@@ -13,7 +14,7 @@ const useFetch = (url: string) => {
   const fetchData = async (url: string) => {
     try {
       setLoading(true);
-      const response = await axios.get(url, { withCredentials: true });
+      const response = await axios.get(`${BACKEND_URL}/api/v1/content/`, { withCredentials: true });
       setContent(response?.data);
       setLoading(false);
     } catch (error: any) {

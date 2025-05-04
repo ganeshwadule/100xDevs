@@ -7,6 +7,7 @@ import Sidebar from "../components/Sidebar";
 import ContentModal from "../components/ContentModal";
 import useFetch from "../hooks/useFetch";
 import { BACKEND_URL } from "../config";
+import axios from "axios";
 
 export interface Content {
   _id: string | null | undefined;
@@ -16,16 +17,41 @@ export interface Content {
   tags?: [string];
 }
 
-const Dashboard = () => {
-
+const Dashboard =  () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { content, loading, error } = useFetch(
+  const { content, loading, error , refetch} = useFetch(
     `${BACKEND_URL}/api/v1/content/`
   );
-  
+
+   
+  console.log(content)
+  const shareBrain = async () => {
+    // request to make share true
+    // will get the link from response    //
+    try {
+      const response = await axios.post(
+        `${BACKEND_URL}/api/v1/brain/share`,
+        {
+          share: true,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+
+      const shareLink = response.data.link;
+      console.log(shareLink)
+      await navigator.clipboard.writeText(shareLink);
+      alert("Link Copied to clipboard!");
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <div className="flex w-screen h-screen overflow-x-hidden">
+    <div className="flex w-full min-h-screen overflow-x-hidden">
       {
         <ContentModal
           isModalOpen={isModalOpen}
@@ -40,6 +66,7 @@ const Dashboard = () => {
             size={"sm"}
             text={"Share Brain"}
             startIcon={<ShareIcon />}
+            onClick={() => shareBrain()} 
           />
           <Button
             variant={"secondary"}
@@ -58,7 +85,12 @@ const Dashboard = () => {
           {error && <div>Some error occurred..</div>}
 
           {content.map((card: Content) => (
-            <Card id = {card._id as string} type={card.type} title={card.title} link={card.link} />
+            <Card
+              id={card._id as string}
+              type={card.type}
+              title={card.title}
+              link={card.link}
+            />
           ))}
         </div>
       </div>
