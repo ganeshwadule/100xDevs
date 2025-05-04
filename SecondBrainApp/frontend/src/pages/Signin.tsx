@@ -5,14 +5,13 @@ import BrainIcon from "../icons/BrainIcon";
 import { useRef } from "react";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
-import { useSetRecoilState } from "recoil";
-import { usernameAtom } from "../store/atoms/username";
+
 
 const Signin = () => {
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
-  const setUsername = useSetRecoilState(usernameAtom);
+
 
   const navigate = useNavigate();
 
@@ -33,7 +32,6 @@ const Signin = () => {
       );
 
       if (response.status === 201) {
-        setUsername(username);
         navigate("/dashboard");
         return;
       }

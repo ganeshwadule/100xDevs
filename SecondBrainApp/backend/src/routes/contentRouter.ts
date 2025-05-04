@@ -7,5 +7,6 @@ const contentRouter = Router();
 contentRouter.use(auth)
 contentRouter.post("/",contentController.addContent)
 contentRouter.get("/",contentController.getContent)
+contentRouter.delete("/",contentController.deleteContent)
 
 export default contentRouter;

@@ -6,7 +6,7 @@ const IconTypes = [{ Twitter: <TweeterIcon /> }, { Youtube: <YoutubeIcon /> }];
 
 const Sidebar = () => {
   return (
-    <div className="left border-gray-200 border w-72 pl-4">
+    <div className="left border-gray-200 border w-72 pl-4 h-auto">
       <div className="logo pt-2 flex items-center gap-3">
         {<BrainIcon />}
         <span className="text-2xl text-gray-900 font-bold">Second Brain</span>

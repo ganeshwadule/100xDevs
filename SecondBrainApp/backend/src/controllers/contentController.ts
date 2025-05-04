@@ -36,8 +36,8 @@ const addContent = async (req: CustomRequest, res: Response) => {
 
      await Content.create({ link, type, title, tags, userId });
    
-     res.json({
-       message: "Content created successfully",
+     res.status(201).json({
+      link, type, title, tags, userId
      });
 
  } catch (error) {
@@ -64,6 +64,20 @@ const getContent = async (req: CustomRequest, res: Response) => {
    }
   };
 
-  
+  const deleteContent = async (req:CustomRequest,res:Response)=>{
+      try {
 
-export default {addContent,getContent}
+        const {id} = req.body;
+
+        const {userId} = req;
+
+        const deletedContent = await Content.findOneAndDelete({ _id: id, userId: userId });
+        
+        res.status(201).json({message:"Deletion successful",content:deletedContent})
+
+      } catch (error) {
+          res.status(500).json({message:"Internal Server Error",error:error})
+      }
+  }
+
+export default {addContent,getContent,deleteContent}
