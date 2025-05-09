@@ -1,17 +1,30 @@
 import { Client } from "pg";
+import express from "express";
+import dotenv from "dotenv";
 
-const pgClient = new Client(
-  "postgresql://neondb_owner:npg_cZmnb2Oyjlk5@ep-shiny-waterfall-a10i2gw3-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require"
-);
+dotenv.config();
+
+const app = express();
+
+app.use(express.json());
+
+const pgClient = new Client(process.env.CONNECTION_STRING as string);
 
 async function connectToDB() {
   try {
     await pgClient.connect();
-    const data = await pgClient.query("SELECT * FROM todo");
-    console.log(data.rows);
   } catch (error) {
     console.error(error);
   }
 }
 
-connectToDB();
+app.post("/", async (req, res) => {
+  const { username, password } = req.body;
+  // syntax to avoid SQL injection
+  const insertQuery = "INSERT INTO users (username,password) VALUES($1,$2)";
+  await connectToDB();
+  await pgClient.query(insertQuery, [username, password]);
+  res.json("you are signed up");
+});
+
+app.listen(3000, () => console.log("Server is listening"));
