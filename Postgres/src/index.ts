@@ -21,9 +21,15 @@ async function connectToDB() {
 app.post("/", async (req, res) => {
   const { username, password } = req.body;
   // syntax to avoid SQL injection
+  await pgClient.query("BEGIN;");
   const insertQuery = "INSERT INTO users (username,password) VALUES($1,$2)";
+
   await connectToDB();
+
   await pgClient.query(insertQuery, [username, password]);
+
+  await pgClient.query("COMMIT;");
+
   res.json("you are signed up");
 });
 
