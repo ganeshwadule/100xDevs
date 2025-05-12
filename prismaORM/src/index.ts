@@ -1,6 +1,8 @@
 import { PrismaClient } from "./generated/prisma";
 
-const client = new PrismaClient();
+const client = new PrismaClient({
+  log:["query"]
+});
 
 async function createUser() {
   await client.user.createMany({
@@ -41,20 +43,29 @@ async function updateUser() {
 }
 
 async function deleteUser() {
-  await client.user.delete({
-    where: {
-      id: 2,
-    },
-  });
-
+  try {
+    await client.user.delete({
+      where: {
+        id: 1,
+      },
+    });
+  
+  } catch (error) {
+    console.error(error)
+  }
   console.log("deleted user");
 }
 
 async function getUser() {
-  const user = await client.user.findMany({
-    
+  const user = await client.user.findFirst({
+    where:{
+      id:1
+    },
+    include:{
+      todos:true
+    }
   });
 
   console.log(user);
 }
-getUser();
+deleteUser();
